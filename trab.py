@@ -73,10 +73,10 @@ def main(target: str, model: str, source_lang="auto", iterations: int=1):
                 if isinstance(inputs[file], BeautifulSoup):
                     soup: BeautifulSoup = inputs[file]
 
-                    for p in soup.find_all("p"):
+                    for p in soup.find_all([ "p", "h1", "h2", "h3", "h4", "h5", "h6" ]):
                         translated = translator.translate(p.get_text())
-
-                        new_p = soup.new_tag("p")
+                        
+                        new_p = soup.new_tag(p.name)
                         new_p.string = translated
                         
                         p.replace_with(new_p)
